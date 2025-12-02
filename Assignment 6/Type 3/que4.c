@@ -1,0 +1,17 @@
+#include<stdio.h>
+void average();
+void main()
+{
+	int a,b,c,d,e;
+	printf("Enter marks of 5 subjects=");
+	scanf("%d%d%d%d%d",&a,&b,&c,&d,&e);
+	average(a,b,c,d,e);
+}//main ends here
+
+void average(int a,int b,int c,int d,int e)
+{
+	int sum,avg;
+	sum=a+b+c+d+e;
+	avg=sum/5;
+	printf("average of 5 marks=%d",avg);
+}//end of average
