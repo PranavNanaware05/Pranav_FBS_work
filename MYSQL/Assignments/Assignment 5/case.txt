@@ -1,0 +1,88 @@
+Library Late Fee Automation
+
+The Sunshine Public Library wants to automate its book return system. 
+Currently, librarians manually calculate fines for late returns, which is time-consuming 
+and prone to errors.
+
+The library has the following rules:
+
+* Every student can borrow books and must return them by the due date.
+* If a book is returned after the due date, a fine of ₹10 per day late is applied.
+* Each return should automatically include the calculated fine when the return record is inserted.
+
+Tasks:
+
+1. Create a stored function calculate_fine(due_date, return_date) to compute the fine for late returns.
+2. Create a stored procedure return_book(student_id, book_id, return_date) that:
+
+   * Inserts the return record into the returns table
+   * Uses the function to compute the fine automatically.
+3. Create a trigger that ensures the fine is correctly set whenever a return record is inserted.
+
+Tables to use:
+
+* students(student_id, student_name, email)
+* books(book_id, title, author, total_copies)
+* borrow(borrow_id, student_id, book_id, borrow_date, due_date, returned)
+* returns(return_id, student_id, book_id, return_date, fine)
+
+Objective:
+Implement a fully automated system where a librarian only needs to call the return_book procedure, 
+and the function and trigger handle fine calculation automatically.
+
+//function
+ delimiter #
+create function calculate_fine(return_date date,due_date date)
+  returns int
+   deterministic
+    begin
+      if return_date>due_date then   
+           return datediff(p_due_date,p_return_date)*10;
+       else
+         return 0;
+      end if;
+   end #
+  
+  delimiter ;
+
+
+
+
+//procedure
+delimiter #
+create procedure return_book( in p_student_id int,in p_book_id int,in p_return_date date)
+ begin
+     declare p_due_date date;
+      select due_date into p_due_date
+       from borrow
+        where student_id=p_student_id;
+
+
+    insert into returns(student_id,book_id,return_date,fine)
+     values
+     (p_student_id,p_book_id,p_return_date,calculate_fine(p_due_date,p_return_date)	);
+ 
+   end# 
+delimiter ;
+
+
+
+//trigger
+delimiter #
+ create trigger before_insert
+  before insert
+  on returns
+  for each row 
+  begin
+  declare due1_date date
+        
+   select due_date into
+         due1_date
+    from borrow
+      where student_id = new.student_id
+      and book_id = new.book_id;
+
+    SET new.fine = calculate_fine(p_due_date,new.return_date);
+end #
+      
+delimiter ;

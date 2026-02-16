@@ -1,0 +1,71 @@
+Name  : pranav Nanaware
+FRN   :11
+Batch :oct_dec_java
+set   : A
+
+Q1) select e_name,salary from employee
+   order by salary desc;
+
+   
+Q2)  select * from employee
+    order by salary desc limit 5;
+   
+Q3)  select * from employee offset 3;
+
+  
+Q4)  select dep_name ,count(e_id) from employee as e
+      inner join department as d
+      on e.dep_id=d.dep_id
+      group by dep_name;
+
+
+
+Q5)  select dep_name,avg(salary) from employee as e
+     inner join department as d
+      on e.dep_id=d.dep_id
+      group by dep_name having avg(salary)>50000; 
+     
+
+Q6) select * from products where
+    name like "%laptop%";
+
+Q7) select left(student_name, 3) 
+      from Students ;
+
+Q 8) select * from students
+      where name like 'a%';
+
+Q9) select month(date) as 'month',count(no_of_orders_placed)
+      geoup by month having  count(no_of_orders_placed)>100;
+    
+Q10)  select categories,sum(sales_amount),avg(sales_amount) from sales
+      group by categories having sum(sales_amount)>100000;  
+
+
+Q11) a) The total number of employees
+
+Q12) b) 8
+
+Q13) c) HAVING
+
+Q14)b) Returns all rows from the left table and matching rows from the right table
+
+Q 15) b) HELLO WORLD
+
+Q16 )
+     regions where the total order amount is greater than 10000
+  
+    select region,sum(total_amounts)as "total_orders" from orders as o
+     inner join Customers as c
+      on o.customer_id=c.customer_id
+      group by region having sum(total_amounts)>10000;
+
+
+Q 17)select author,sum(quantity) as "total_books_sold from books as b
+     inner join sales as e
+     on  b.book_id=e.book_id
+     group by sum(quantity)>100;   
+
+
+
+  

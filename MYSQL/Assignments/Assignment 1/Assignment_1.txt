@@ -1,0 +1,64 @@
+Q1.create database mysql_firstbit
+    
+    create database firstbit_sql;
+
+Q2.Write an SQL statement to create a simple table countries including columns
+   country_id,country_name and region_id. After this display the structure of
+   table as below :
+ANS:
+   create table countries(
+    -> country_id int(11) default null,
+    -> country_name varchar(20) default null,
+    -> region_id int(11) default null);
+
+Q3.Write an SQL statement to create a table named jobs including columns
+   job_id, job_title, min_salary, max_salary and check whether the
+   max_salary amount exceeding the upper limit 25000. Also set job_id as
+   primary key and entering null values for job_title is not allowed.
+ANS:
+      CREATE TABLE jobs (
+    ->     job_id INT PRIMARY KEY,
+    ->     job_tittle VARCHAR(20) NOT NULL,
+    ->     min_salary INT,
+    ->     max_salary INT CHECK (max_salary > 2500)
+    -> );
+    
+Q4. Write a SQL statement to create a table named job_histry including columns
+   employee_id, start_date, end_date, job_id and department_id
+   
+   CREATE TABLE job_histry (
+    employee_id INT,
+    start_date DATE,
+    end_date DATE,
+    job_id INT,
+    department_id INT
+     );
+Q5    Write an SQL statement to alter a table named countries to make sure that no
+      duplicate data against column country_id will be allowed at the time of
+      insertion.
+
+        
+
+Q6.Write an SQL statement to create a table named jobs including columns job_id,
+   job_title, min_salary and max_salary, and make sure that, the default value
+   for job_title is blank and min_salary is 8000 and max_salary is NULL will be
+   entered automatically at the time of insertion if no value assigned for the
+   specified columns.
+ANS:
+    1) alter table jobs
+    -> modify job_tittle varchar(20) not null default "na";
+
+    2)  alter table jobs
+    -> modify min_salary int default 8000;
+    
+    3)  alter table jobs
+    -> modify max_salary int default null;
+
+7. Create a Department table with following structure
+
+   ALTER TABLE department
+    -> ADD PRIMARY KEY (DEPARTMENT_ID, MANAGER_ID);
+
+
+  
+   

@@ -1,0 +1,291 @@
+Q 1) List all the books that are written by Author Loni and has price less then 600.
+
+     mysql> Select Book_name from books
+    -> where Author="Loni" and cost<=600;
++----------------------+
+| Book_name            |
++----------------------+
+| Oracle Complete ref  |
+| Mastering SQL        |
++----------------------+
+
+
+Q 2) List the Issue details for the books that are not returned yet.
+   
+      select * from issue
+    -> where Return_date is null;
++--------------+---------+-----------+------------+-------------+
+| Lib_Issue_Id | Book_no | Member_id | Issue_date | Return_date |
++--------------+---------+-----------+------------+-------------+
+|         7001 |     101 |         1 | 2006-12-10 | NULL        |
+|         7002 |     102 |         2 | 2006-12-25 | NULL        |
+|         7006 |     101 |         3 | 2006-02-18 | NULL        |
++--------------+---------+-----------+------------+-------------+
+
+
+
+Q 3)Update all the blank return_date with 31-Dec-06 excluding 7005 and 7006.
+    UPDATE issue
+    -> SET Return_date = '2006-12-31'
+    -> WHERE Return_date IS NULL
+    -> AND Lib_Issue_Id NOT IN (7005, 7006);
+Query OK, 2 rows affected (0.01 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> table issue;
++--------------+---------+-----------+------------+-------------+
+| Lib_Issue_Id | Book_no | Member_id | Issue_date | Return_date |
++--------------+---------+-----------+------------+-------------+
+|         7001 |     101 |         1 | 2006-12-10 | 2006-12-31  |
+|         7002 |     102 |         2 | 2006-12-25 | 2006-12-31  |
+|         7005 |     104 |         2 | 2006-11-15 | 2006-11-30  |
+|         7006 |     101 |         3 | 2006-02-18 | NULL        |
++--------------+---------+-----------+------------+-------------+
+
+
+Q 4) List all the Issue details that have books issued for more then 30 days.
+
+
+
+
+
+
+
+Q5) List all the books that have price in range of 500 to 750 and has category as Database.
+    
+     mysql> select Book_name from books
+    -> where Cost between 500 and 750 and category="Database";
++--------------------------+
+| Book_name                |
++--------------------------+
+| Oracle Complete ref      |
+| Pl SQl ref               |
+| Database System Concepts |
++--------------------------+
+
+
+Q 6)List all the books that belong to any one of the following categories Science, Database, Fiction, Management.
+
+
+       mysql> select Book_name from books
+    -> where  category in("Science", "Database", "Fiction", "Management");
++--------------------------+
+| Book_name                |
++--------------------------+
+| Oracle Complete ref      |
+| Mastering SQL            |
+| Pl SQl ref               |
+| Database System Concepts |
++--------------------------+
+
+
+
+Q 7) List all the members in the descending order of Penalty due on them.
+     
+      mysql> Select * from member
+    -> order by Penalty_amount desc;
++-----------+----------------+----------------+---------------+-----------------+-----------+-------------------+----------------+
+| Member_Id | Member_name    | Member_address | Acc_Open_Date | Membership_type | Fees_paid | Max_Books_Allowed | Penalty_Amount |
++-----------+----------------+----------------+---------------+-----------------+-----------+-------------------+----------------+
+|         1 | Richa Sharma   | Pune           | 2005-12-10    | Lifetime        |     25000 |                 5 |          50.00 |
+|         4 | Neha Kulkarni  | Nashik         | 2022-01-20    | Quarterly       |      1500 |                 2 |          25.00 |
+|         3 | Amit Patil     | Mumbai         | 2018-06-15    | Half Yearly     |      3000 |                 4 |           0.00 |
+|         6 | Sneha Joshi    | Kolhapur       | 2021-09-10    | Lifetime        |     30000 |                 6 |           0.00 |
+|         2 | Garima Sen     | Pune           | 2026-01-05    | Annual          |      1000 |                 3 |           NULL |
+|         5 | Rahul Deshmukh | Nagpur         | 2026-01-05    | Annual          |      1200 |                 3 |           NULL |
+|         7 | Kunal Pawar    | Satara         | 2026-01-05    | Half Yearly     |      2500 |                 4 |           NULL |
+|         8 | Pranav         | NULL           | NULL          | Annual          |      NULL |                10 |           NULL |
++-----------+----------------+----------------+---------------+-----------------+-----------+-------------------+----------------+
+
+Q 8) Modify the price of book with id 103 to Rs 300 and category to RDBMS.
+
+       table books;
++---------+--------------------------+--------------------+------+----------+
+| Book_no | Book_Name                | Author             | Cost | category |
++---------+--------------------------+--------------------+------+----------+
+|     101 | Let us C                 | denis Ritchie      |  450 | System   |
+|     102 | Oracle Complete ref      | Loni               |  550 | Database |
+|     103 | Mastering SQL            | Loni               |  300 | Database |
+|     104 | Pl SQl ref               | Scott Urman        |  750 | Database |
+|     105 | Java Complete Reference  | Herbert Schildt    |  650 | System   |
+|     106 | Let Us C                 | Yashavant Kanetkar |  450 | System   |
+|     107 | Database System Concepts | Korth              |  700 | Database |
+|     108 | Clean Code               | Robert C Martin    |  500 | Others   |
++---------+--------------------------+--------------------+------+----------+
+
+Q 9) List all the books in ascending order of category and descending order of price.
+     
+      select * from books
+    -> order by category asc,cost desc;
++---------+--------------------------+--------------------+------+----------+
+| Book_no | Book_Name                | Author             | Cost | category |
++---------+--------------------------+--------------------+------+----------+
+|     104 | Pl SQl ref               | Scott Urman        |  750 | Database |
+|     107 | Database System Concepts | Korth              |  700 | Database |
+|     102 | Oracle Complete ref      | Loni               |  550 | Database |
+|     103 | Mastering SQL            | Loni               |  300 | Database |
+|     108 | Clean Code               | Robert C Martin    |  500 | Others   |
+|     105 | Java Complete Reference  | Herbert Schildt    |  650 | System   |
+|     101 | Let us C                 | denis Ritchie      |  450 | System   |
+|     106 | Let Us C                 | Yashavant Kanetkar |  450 | System   |
++---------+--------------------------+--------------------+------+----------+
+
+
+Q 10) List all the books that contain word SQL in the name of the book.
+
+       mysql> select Book_name from books
+    -> where Book_name like"%sql%";
++----------------+
+| Book_name      |
++----------------+
+| Mastering SQL  |
+| Pl SQl ref     |
++----------------+
+
+
+Q 11) List the Lib_Issue_Id, Issue_Date, Return_Date and No of days Book was issued.
+
+
+
+
+
+
+
+
+Q 12) Find the details of the member of the Library in the order of their joining the library.
+
+       mysql> select * from member
+    -> order by Acc_Open_date asc;
++-----------+----------------+----------------+---------------+-----------------+-----------+-------------------+----------------+
+| Member_Id | Member_name    | Member_address | Acc_Open_Date | Membership_type | Fees_paid | Max_Books_Allowed | Penalty_Amount |
++-----------+----------------+----------------+---------------+-----------------+-----------+-------------------+----------------+
+|         8 | Pranav         | NULL           | NULL          | Annual          |      NULL |                10 |           NULL |
+|         1 | Richa Sharma   | Pune           | 2005-12-10    | Lifetime        |     25000 |                 5 |          50.00 |
+|         3 | Amit Patil     | Mumbai         | 2018-06-15    | Half Yearly     |      3000 |                 4 |           0.00 |
+|         6 | Sneha Joshi    | Kolhapur       | 2021-09-10    | Lifetime        |     30000 |                 6 |           0.00 |
+|         4 | Neha Kulkarni  | Nashik         | 2022-01-20    | Quarterly       |      1500 |                 2 |          25.00 |
+|         2 | Garima Sen     | Pune           | 2026-01-05    | Annual          |      1000 |                 3 |           NULL |
+|         5 | Rahul Deshmukh | Nagpur         | 2026-01-05    | Annual          |      1200 |                 3 |           NULL |
+|         7 | Kunal Pawar    | Satara         | 2026-01-05    | Half Yearly     |      2500 |                 4 |           NULL |
++-----------+----------------+----------------+---------------+-----------------+-----------+-------------------+----------------+
+
+
+Q 13) Display the count of total no of books issued to Member 101.
+
+     mysql> select count(*)  as "no of books issue" from issue
+    -> where Member_id=1;
++-------------------+
+| no of books issue |
++-------------------+
+|                 0 |
++-------------------+
+
+
+Q 14) Display the total penalty due for all the members.
+
+        select sum(Penalty_amount) as "total penalty" from member;
++---------------+
+| total penalty |
++---------------+
+|         75.00 |
+
+
+Q 15) Display the total no of members
+    
+      mysql> select count(Member_Id) as "total members" from member;
++---------------+
+| total members |
++---------------+
+|             8 |
++---------------+
+
+
+Q 16) Display the total no of books issued
+      
+       select count(Lib_Issue_id) as "total issued books" from issue;
++--------------------+
+| total issued books |
++--------------------+
+|                  4 |
++--------------------+
+
+
+Q17) Display the average membership fees paid by all the members
+
+
+ select avg(Fees_paid) as "avg fees paid from employees" from member;
++------------------------------+
+| avg fees paid from employees |
++------------------------------+
+|                    9171.4286 |
++------------------------------+
+
+Q18) List the various categories and count of books in each category.
+
+
+   select category,count(Book_no) from books
+    -> group by category;
++----------+----------------+
+| category | count(Book_no) |
++----------+----------------+
+| System   |              3 |
+| Database |              4 |
+| Others   |              1 |
++----------+----------------+
+
+
+Q 19) List the book_No and the number of times the book is issued in the descending order of count.
+      
+       select book_no ,count(Issue_date) as "number_of_time_issued"
+    -> from issue
+    -> group by book_no order by number_of_time_issued desc;
++---------+-----------------------+
+| book_no | number_of_time_issued |
++---------+-----------------------+
+|     101 |                     2 |
+|     102 |                     1 |
+|     104 |                     1 |
++---------+-----------------------+
+
+
+Q 20) Find the maximum, minimum, total and average penalty amount in the member table.
+
+     mysql> select max(penalty_amount) as "max penalty",
+    -> min(penalty_amount) as "min penalty",
+    -> sum(penalty_amount) as "total penalty",
+    -> avg(penalty_amount) as "avg penalty"
+    -> from member;
++-------------+-------------+---------------+-------------+
+| max penalty | min penalty | total penalty | avg penalty |
++-------------+-------------+---------------+-------------+
+|       50.00 |        0.00 |         75.00 |   18.750000 |
++-------------+-------------+---------------+-------------+
+
+
+Q 21) Display the member id and the no of books for each member that has issued more then 2 books.
+
+mysql> select member_id,count(book_no) from issue
+    -> group by member_id having count(book_no)>2;
+      
+Q 22)Display the member id, book no and no of times the same book is issued by the member in the descending order of count.         
+
+
+     select member_id,count(Book_no) as "issue count" from issue
+    -> group by member_id
+    -> order by count(Book_no) desc;
++-----------+-------------+
+| member_id | issue count |
++-----------+-------------+
+|         2 |           2 |
+|         1 |           1 |
+|         3 |           1 |
++-----------+-------------+
+
+
+Q 23)Display the month and no of books issued each month in the descending order of count.
+
+
+ Q 24) List the book_no of all the books that are not issued to any member so far. 
+
+
+       
