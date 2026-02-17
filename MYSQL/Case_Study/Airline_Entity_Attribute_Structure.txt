@@ -1,0 +1,212 @@
+============================================================
+              AIRLINE BOOKING DATABASE
+              ENTITY – ATTRIBUTE STRUCTURE
+============================================================
+
+
+------------------------------------------------------------
+ENTITY : AIRCRAFT
+------------------------------------------------------------
+Primary Key :
+   aircraft_id
+
+Attributes :
+   aircraft_id
+   register_no
+   total_seats
+   aircraft_type
+
+
+
+------------------------------------------------------------
+ENTITY : PASSENGER
+------------------------------------------------------------
+Primary Key :
+   p_id
+
+Attributes :
+   p_id
+   p_name
+   mob_no
+   email
+   seat_preference
+
+
+
+------------------------------------------------------------
+ENTITY : BOOKING
+------------------------------------------------------------
+Primary Key :
+   b_id
+
+Foreign Keys :
+   p_id      → PASSENGER(p_id)
+   price_id  → PRICE(price_id)
+
+Attributes :
+   b_id
+   p_id
+   price_id
+   booking_status
+   booking_date
+
+
+
+------------------------------------------------------------
+ENTITY : PAYMENT
+------------------------------------------------------------
+Primary Key :
+   payment_id
+
+Foreign Key :
+   b_id  → BOOKING(b_id)
+
+Attributes :
+   payment_id
+   b_id
+   payment_date
+   amount_paid
+   payment_status
+   payment_method
+
+
+
+------------------------------------------------------------
+ENTITY : FLIGHT
+------------------------------------------------------------
+Primary Key :
+   f_id
+
+Foreign Key :
+   aircraft_id  → AIRCRAFT(aircraft_id)
+
+Attributes :
+   f_id
+   origin
+   destination
+   departure
+   arrival_time
+   aircraft_id
+
+
+
+------------------------------------------------------------
+ENTITY : FLIGHT_CREW
+------------------------------------------------------------
+Primary Key :
+   crew_id
+
+Attributes :
+   crew_id
+   name
+   role
+   salary
+
+
+
+------------------------------------------------------------
+ENTITY : FLIGHT_CREW_ASSIGNMENT
+------------------------------------------------------------
+Primary Key :
+   assign_id
+
+Foreign Keys :
+   crew_id  → FLIGHT_CREW(crew_id)
+   f_id     → FLIGHT(f_id)
+
+Attributes :
+   assign_id
+   crew_id
+   f_id
+   crew_role
+
+
+
+------------------------------------------------------------
+ENTITY : ITINERARY
+------------------------------------------------------------
+Primary Key :
+   itinerary_id
+
+Foreign Key :
+   b_id  → BOOKING(b_id)
+
+Attributes :
+   itinerary_id
+   b_id
+   start_date
+   end_date
+   origin
+   destination
+
+
+
+------------------------------------------------------------
+ENTITY : ITINERARY_FLIGHT
+------------------------------------------------------------
+Primary Key :
+   itinerary_flight_id
+
+Foreign Keys :
+   itinerary_id  → ITINERARY(itinerary_id)
+   f_id          → FLIGHT(f_id)
+
+Attributes :
+   itinerary_flight_id
+   itinerary_id
+   f_id
+   flight_seq_no
+
+
+
+------------------------------------------------------------
+ENTITY : PRICE
+------------------------------------------------------------
+Primary Key :
+   price_id
+
+Attributes :
+   price_id
+   (fare / price details as per system)
+
+
+
+============================================================
+DATABASE FUNCTIONS
+============================================================
+
+Function :
+   totalPayment(passengerId)
+
+Purpose :
+   Calculate total amount paid by a passenger.
+
+Logic :
+   SUM(payment.amount_paid)
+   FROM booking
+   JOIN payment
+   WHERE booking.p_id = passengerId
+
+
+
+============================================================
+DATABASE STORED PROCEDURE
+============================================================
+
+Procedure :
+   getPassengerBooking(passengerName)
+
+Purpose :
+   Retrieve booking details and payment info for a passenger.
+
+Returns :
+   passenger name
+   booking id
+   booking status
+   amount paid
+
+
+
+============================================================
+END OF DOCUMENT
+============================================================
