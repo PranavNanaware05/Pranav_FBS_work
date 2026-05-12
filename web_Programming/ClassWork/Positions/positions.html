@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+
+body{
+  height: 200vh;
+}
+
+/* Parent box */
+.parent{
+  width: 300px;
+  height: 300px;
+  background: lightgray;
+  margin: 50px;
+  position: relative; /* IMPORTANT */
+}
+
+/* Box 1 - Normal */
+.box1{
+  width: 100px;
+  height: 100px;
+  background: gray;
+}
+
+/* Box 2 - Relative */
+.box2{
+  width: 100px;
+  height: 100px;
+  background: blue;
+  position: relative;
+  top: 20px;
+}
+
+/* Box 3 - Absolute */
+.box3{
+  width: 100px;
+  height: 100px;
+  background: red;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+/* Fixed */
+.fixed{
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  background: purple;
+  color: white;
+  padding: 10px;
+}
+
+/* Sticky */
+.sticky{
+  position: sticky;
+  top: 0;
+  background: orange;
+  padding: 10px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="sticky">Sticky (scroll me)</div>
+
+<div class="parent">
+  <div class="box1">Static</div>
+  <div class="box2">Relative</div>
+  <div class="box3">Absolute</div>
+</div>
+
+<div class="fixed">Fixed</div>
+
+</body>
+</html>
