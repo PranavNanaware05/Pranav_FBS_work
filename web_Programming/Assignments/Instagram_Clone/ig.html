@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Instagram</title>
+<link href="https://fonts.googleapis.com/css2?family=Billabong&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg: #fafafa;
+    --white: #ffffff;
+    --border: #dbdbdb;
+    --text-primary: #262626;
+    --text-secondary: #737373;
+    --blue: #0095f6;
+    --gradient: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+    --sidebar-w: 245px;
+  }
+  body { background: var(--bg); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 14px; color: var(--text-primary); display: flex; min-height: 100vh; }
+
+  /* SIDEBAR */
+  .sidebar {
+    width: var(--sidebar-w);
+    background: var(--white);
+    border-right: 1px solid var(--border);
+    position: fixed; top: 0; left: 0; height: 100vh;
+    display: flex; flex-direction: column;
+    padding: 12px 12px 20px;
+    z-index: 100;
+  }
+  .sidebar-logo {
+    padding: 16px 12px 20px;
+    font-family: 'Billabong', cursive;
+    font-size: 28px;
+    letter-spacing: -0.5px;
+    display: block;
+    text-decoration: none;
+    color: var(--text-primary);
+  }
+  .nav-item {
+    display: flex; align-items: center; gap: 16px;
+    padding: 12px 12px; border-radius: 8px;
+    cursor: pointer; text-decoration: none; color: var(--text-primary);
+    font-size: 15px; position: relative;
+    transition: background 0.15s;
+    user-select: none;
+  }
+  .nav-item:hover { background: #f0f0f0; }
+  .nav-item svg { width: 24px; height: 24px; flex-shrink: 0; }
+  .nav-item .badge {
+    position: absolute; top: 6px; left: 28px;
+    background: #ff3040; color: #fff;
+    border-radius: 50%; width: 18px; height: 18px;
+    font-size: 10px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .nav-avatar { width: 24px; height: 24px; border-radius: 50%; object-fit: cover; }
+  .sidebar-bottom { margin-top: auto; }
+  .more-btn { display: flex; align-items: center; gap: 16px; padding: 12px 12px; border-radius: 8px; cursor: pointer; font-size: 15px; }
+  .more-btn:hover { background: #f0f0f0; }
+
+  /* MAIN */
+  .main { margin-left: var(--sidebar-w); flex: 1; display: flex; justify-content: center; padding: 24px 0; }
+  .feed-col { width: 470px; max-width: 100%; }
+
+  /* STORIES */
+  .stories-wrap {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px 0;
+    margin-bottom: 24px;
+    overflow: hidden;
+  }
+  .stories-scroll { display: flex; gap: 0; overflow-x: auto; padding: 0 16px; scrollbar-width: none; }
+  .stories-scroll::-webkit-scrollbar { display: none; }
+  .story-item { display: flex; flex-direction: column; align-items: center; gap: 6px; cursor: pointer; min-width: 66px; }
+  .story-ring {
+    width: 56px; height: 56px; border-radius: 50%;
+    background: var(--gradient);
+    padding: 2px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .story-ring.seen { background: #dbdbdb; }
+  .story-ring .inner {
+    width: 100%; height: 100%; border-radius: 50%; border: 2px solid var(--white);
+    overflow: hidden; background: #eee;
+  }
+  .story-ring .inner img { width: 100%; height: 100%; object-fit: cover; }
+  .story-label { font-size: 11px; color: var(--text-primary); max-width: 64px; text-align: center; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .story-add { position: relative; }
+  .story-add .plus {
+    position: absolute; bottom: 0; right: 0;
+    background: var(--blue); border: 2px solid var(--white);
+    color: #fff; border-radius: 50%; width: 20px; height: 20px;
+    font-size: 16px; line-height: 16px; text-align: center;
+    font-weight: 300;
+  }
+
+  /* POST */
+  .post {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    margin-bottom: 24px;
+  }
+  .post-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 12px 16px;
+  }
+  .post-user { display: flex; align-items: center; gap: 10px; cursor: pointer; }
+  .post-avatar { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; }
+  .post-username { font-weight: 600; font-size: 14px; }
+  .post-time { color: var(--text-secondary); font-size: 12px; }
+  .post-more { background: none; border: none; cursor: pointer; padding: 4px; }
+  .post-img { width: 100%; display: block; aspect-ratio: 1/1; object-fit: cover; }
+  .post-img-placeholder { width: 100%; aspect-ratio: 1/1; background: #efefef; display: flex; align-items: center; justify-content: center; color: #bbb; font-size: 48px; }
+
+  .post-actions { display: flex; align-items: center; gap: 4px; padding: 8px 12px 0; }
+  .action-btn { background: none; border: none; cursor: pointer; padding: 8px; display: flex; align-items: center; }
+  .action-btn svg { width: 24px; height: 24px; }
+  .action-btn:hover svg { opacity: 0.6; }
+  .action-btn.liked svg path { fill: #ff3040; stroke: #ff3040; }
+  .bookmark-btn { margin-left: auto; }
+
+  .post-likes { padding: 0 16px 6px; font-weight: 600; font-size: 14px; cursor: pointer; }
+  .post-caption { padding: 0 16px 6px; font-size: 14px; line-height: 1.5; }
+  .post-caption strong { font-weight: 600; cursor: pointer; margin-right: 4px; }
+  .post-comments-link { padding: 0 16px 4px; color: var(--text-secondary); font-size: 14px; cursor: pointer; }
+  .post-add-comment { display: flex; align-items: center; padding: 8px 16px; border-top: 1px solid var(--border); margin-top: 4px; }
+  .post-add-comment input { border: none; outline: none; background: none; flex: 1; font-size: 14px; color: var(--text-primary); }
+  .post-add-comment input::placeholder { color: var(--text-secondary); }
+  .post-post-btn { background: none; border: none; color: var(--blue); font-weight: 600; font-size: 14px; cursor: pointer; opacity: 0; transition: opacity 0.2s; }
+  .post-add-comment input:focus ~ .post-post-btn,
+  .post-add-comment:focus-within .post-post-btn { opacity: 1; }
+  .emoji-btn { background: none; border: none; cursor: pointer; margin-right: 8px; font-size: 18px; }
+
+  /* RIGHT PANEL */
+  .right-col { width: 320px; padding-left: 32px; flex-shrink: 0; }
+  .right-col { position: sticky; top: 24px; height: fit-content; }
+  .profile-card { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
+  .profile-card .pf-avatar { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; }
+  .profile-card .pf-info { flex: 1; }
+  .profile-card .pf-name { font-weight: 600; font-size: 14px; }
+  .profile-card .pf-sub { color: var(--text-secondary); font-size: 12px; }
+  .switch-btn { color: var(--blue); font-weight: 600; font-size: 12px; cursor: pointer; background: none; border: none; }
+  .suggested-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+  .suggested-title { color: var(--text-secondary); font-weight: 600; font-size: 14px; }
+  .see-all-btn { color: var(--text-primary); font-weight: 600; font-size: 12px; cursor: pointer; background: none; border: none; }
+  .suggest-item { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+  .suggest-avatar { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; background: #ddd; }
+  .suggest-info { flex: 1; }
+  .suggest-name { font-weight: 600; font-size: 13px; line-height: 1.3; }
+  .suggest-sub { color: var(--text-secondary); font-size: 11px; }
+  .follow-btn { color: var(--blue); font-weight: 600; font-size: 12px; cursor: pointer; background: none; border: none; white-space: nowrap; }
+  .follow-btn.following { color: var(--text-secondary); }
+  .footer-links { margin-top: 20px; color: var(--text-secondary); font-size: 11px; line-height: 1.8; }
+  .footer-links a { color: var(--text-secondary); text-decoration: none; margin-right: 6px; }
+  .footer-links a:hover { text-decoration: underline; }
+  .footer-copy { color: var(--text-secondary); font-size: 11px; margin-top: 8px; text-transform: uppercase; letter-spacing: 0.3px; }
+
+  /* HEART ANIMATION */
+  @keyframes heartPop { 0%{transform:scale(1)} 30%{transform:scale(1.4)} 60%{transform:scale(0.9)} 100%{transform:scale(1)} }
+  .action-btn.liked { animation: heartPop 0.35s ease; }
+
+  /* DOUBLE TAP HEART */
+  .post-img-wrap { position: relative; overflow: hidden; }
+  .double-tap-heart {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%) scale(0);
+    pointer-events: none; font-size: 80px; opacity: 0;
+    transition: none;
+  }
+  .double-tap-heart.pop {
+    animation: dtPop 0.8s ease forwards;
+  }
+  @keyframes dtPop {
+    0%  { transform: translate(-50%,-50%) scale(0); opacity:1; }
+    30% { transform: translate(-50%,-50%) scale(1.2); opacity:1; }
+    60% { transform: translate(-50%,-50%) scale(1); opacity:1; }
+    100%{ transform: translate(-50%,-50%) scale(1); opacity:0; }
+  }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    .right-col { display: none; }
+    .sidebar { width: 72px; }
+    .sidebar-logo { font-size: 22px; text-align: center; padding: 16px 0 20px; }
+    .nav-item span, .more-btn span { display: none; }
+    .nav-item { justify-content: center; gap: 0; }
+    .main { margin-left: 72px; }
+    .feed-col { width: 100%; max-width: 500px; margin: 0 auto; }
+  }
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<nav class="sidebar">
+  <a class="sidebar-logo" href="#">Instagram</a>
+  <div class="nav-item active">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/><path d="M9 21V12h6v9"/></svg>
+    <span>Home</span>
+  </div>
+  <div class="nav-item">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+    <span>Search</span>
+  </div>
+  <div class="nav-item">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/><path d="M2 12h20M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"/></svg>
+    <span>Explore</span>
+  </div>
+  <div class="nav-item">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="3"/><path d="M9.5 8.5L16 12l-6.5 3.5V8.5z"/></svg>
+    <span>Reels</span>
+  </div>
+  <div class="nav-item">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+    <span>Messages</span>
+    <div class="badge">2</div>
+  </div>
+  <div class="nav-item">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+    <span>Notifications</span>
+  </div>
+  <div class="nav-item">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+    <span>Create</span>
+  </div>
+  <div class="sidebar-bottom">
+    <div class="nav-item">
+      <img class="nav-avatar" src="https://i.pravatar.cc/100?img=12" alt="Profile">
+      <span>Profile</span>
+    </div>
+    <div class="more-btn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="24" height="24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      <span>More</span>
+    </div>
+  </div>
+</nav>
+
+<!-- MAIN FEED -->
+<main class="main">
+  <div class="feed-col">
+
+    <!-- STORIES -->
+    <div class="stories-wrap">
+      <div class="stories-scroll">
+        <div class="story-item story-add">
+          <div class="story-ring seen">
+            <div class="inner">
+              <img src="https://i.pravatar.cc/100?img=12" alt="You">
+            </div>
+          </div>
+          <div class="plus">+</div>
+          <span class="story-label">Your story</span>
+        </div>
+        <div class="story-item" onclick="viewStory(this)">
+          <div class="story-ring"><div class="inner"><img src="https://i.pravatar.cc/100?img=1" alt="anuja"></div></div>
+          <span class="story-label">anuja_tath...</span>
+        </div>
+        <div class="story-item" onclick="viewStory(this)">
+          <div class="story-ring"><div class="inner"><img src="https://i.pravatar.cc/100?img=2" alt="dr_neha"></div></div>
+          <span class="story-label">dr_neha_p...</span>
+        </div>
+        <div class="story-item" onclick="viewStory(this)">
+          <div class="story-ring"><div class="inner"><img src="https://i.pravatar.cc/100?img=3" alt="ankita"></div></div>
+          <span class="story-label">ankita.dha...</span>
+        </div>
+        <div class="story-item" onclick="viewStory(this)">
+          <div class="story-ring"><div class="inner"><img src="https://i.pravatar.cc/100?img=5" alt="gaurav"></div></div>
+          <span class="story-label">gaurav__2...</span>
+        </div>
+        <div class="story-item" onclick="viewStory(this)">
+          <div class="story-ring"><div class="inner"><img src="https://i.pravatar.cc/100?img=6" alt="sanika"></div></div>
+          <span class="story-label">sanika_sur...</span>
+        </div>
+        <div class="story-item" onclick="viewStory(this)">
+          <div class="story-ring"><div class="inner"><img src="https://i.pravatar.cc/100?img=7" alt="ankit"></div></div>
+          <span class="story-label">ankit_kesa...</span>
+        </div>
+        <div class="story-item" onclick="viewStory(this)">
+          <div class="story-ring"><div class="inner"><img src="https://i.pravatar.cc/100?img=8" alt="priya"></div></div>
+          <span class="story-label">priya.sh...</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- POST 1 - Wedding (matching uploaded image) -->
+    <div class="post">
+      <div class="post-header">
+        <div class="post-user">
+          <img class="post-avatar" src="https://i.pravatar.cc/100?img=31" alt="rahangdale1552">
+          <div>
+            <div class="post-username">rahangdale1552</div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px">
+          <span style="color:var(--text-secondary);font-size:13px">52m</span>
+          <button class="post-more">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="post-img-wrap" ondblclick="doubleTapLike(this)">
+        <img class="post-img" src="https://images.unsplash.com/photo-1501004318641-b39e6451bec6" alt="Wedding">
+        <div class="double-tap-heart">❤️</div>
+      </div>
+      <div class="post-actions">
+        <button class="action-btn like-btn" onclick="toggleLike(this, 'likes1')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+        </button>
+        <button class="action-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+        </button>
+        <button class="action-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+        </button>
+        <button class="action-btn bookmark-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg>
+        </button>
+      </div>
+      <div class="post-likes"><span id="likes1">1,248</span> likes</div>
+      <div class="post-caption"><strong>rahangdale1552</strong> A beautiful wedding celebration 💍✨ So grateful to witness this magical day. Wishing the couple a lifetime of happiness! #wedding #indianwedding #love #bridal</div>
+      <div class="post-comments-link">View all 47 comments</div>
+      <div class="post-add-comment">
+        <span class="emoji-btn">😊</span>
+        <input type="text" placeholder="Add a comment…" id="comment1" oninput="togglePostBtn('comment1','postbtn1')">
+        <button class="post-post-btn" id="postbtn1" onclick="postComment('comment1')">Post</button>
+      </div>
+    </div>
+
+    <!-- POST 2 -->
+    <div class="post">
+      <div class="post-header">
+        <div class="post-user">
+          <img class="post-avatar" src="https://i.pravatar.cc/100?img=20" alt="anuja">
+          <div>
+            <div class="post-username">anuja_tath</div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px">
+          <span style="color:var(--text-secondary);font-size:13px">2h</span>
+          <button class="post-more">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="post-img-wrap" ondblclick="doubleTapLike(this)">
+        <img class="post-img" src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80" alt="Mountains">
+        <div class="double-tap-heart">❤️</div>
+      </div>
+      <div class="post-actions">
+        <button class="action-btn like-btn" onclick="toggleLike(this, 'likes2')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+        </button>
+        <button class="action-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+        </button>
+        <button class="action-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+        </button>
+        <button class="action-btn bookmark-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg>
+        </button>
+      </div>
+      <div class="post-likes"><span id="likes2">892</span> likes</div>
+      <div class="post-caption"><strong>anuja_tath</strong> Mountains are calling and I must go 🏔️ #travel #nature #mountains #wanderlust</div>
+      <div class="post-comments-link">View all 23 comments</div>
+      <div class="post-add-comment">
+        <span class="emoji-btn">😊</span>
+        <input type="text" placeholder="Add a comment…" id="comment2" oninput="togglePostBtn('comment2','postbtn2')">
+        <button class="post-post-btn" id="postbtn2" onclick="postComment('comment2')">Post</button>
+      </div>
+    </div>
+
+    <!-- POST 3 -->
+    <div class="post">
+      <div class="post-header">
+        <div class="post-user">
+          <img class="post-avatar" src="https://i.pravatar.cc/100?img=25" alt="gaurav">
+          <div>
+            <div class="post-username">gaurav__2</div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px">
+          <span style="color:var(--text-secondary);font-size:13px">5h</span>
+          <button class="post-more">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="post-img-wrap" ondblclick="doubleTapLike(this)">
+        <img class="post-img" src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600&q=80" alt="Interiors">
+        <div class="double-tap-heart">❤️</div>
+      </div>
+      <div class="post-actions">
+        <button class="action-btn like-btn liked" onclick="toggleLike(this, 'likes3')">
+          <svg viewBox="0 0 24 24" fill="#ff3040" stroke="#ff3040" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+        </button>
+        <button class="action-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+        </button>
+        <button class="action-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+        </button>
+        <button class="action-btn bookmark-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg>
+        </button>
+      </div>
+      <div class="post-likes"><span id="likes3">3,401</span> likes</div>
+      <div class="post-caption"><strong>gaurav__2</strong> Home is where the heart is 🏠 New interior setup, loving every corner 😍 #interiordesign #homedecor #cozy</div>
+      <div class="post-comments-link">View all 102 comments</div>
+      <div class="post-add-comment">
+        <span class="emoji-btn">😊</span>
+        <input type="text" placeholder="Add a comment…" id="comment3" oninput="togglePostBtn('comment3','postbtn3')">
+        <button class="post-post-btn" id="postbtn3" onclick="postComment('comment3')">Post</button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- RIGHT COLUMN -->
+  <div class="right-col">
+    <div class="profile-card">
+      <img class="pf-avatar" src="https://i.pravatar.cc/100?img=12" alt="wagh_bhau">
+      <div class="pf-info">
+        <div class="pf-name">wagh_bhau</div>
+        <div class="pf-sub">Shubham Wagh</div>
+      </div>
+      <button class="switch-btn">Switch</button>
+    </div>
+
+    <div class="suggested-header">
+      <span class="suggested-title">Suggested for you</span>
+      <button class="see-all-btn">See all</button>
+    </div>
+
+    <div class="suggest-item">
+      <img class="suggest-avatar" src="https://i.pravatar.cc/100?img=31" alt="Mahima">
+      <div class="suggest-info">
+        <div class="suggest-name">Mahima Anadeo</div>
+        <div class="suggest-sub">🎭 Followed by _rit_ssss1201</div>
+      </div>
+      <button class="follow-btn" onclick="toggleFollow(this)">Follow</button>
+    </div>
+    <div class="suggest-item">
+      <img class="suggest-avatar" src="https://i.pravatar.cc/100?img=32" alt="clumsy_v">
+      <div class="suggest-info">
+        <div class="suggest-name">clumsy_v</div>
+        <div class="suggest-sub">🎭🌿 Followed by hated_devil + 1</div>
+      </div>
+      <button class="follow-btn" onclick="toggleFollow(this)">Follow</button>
+    </div>
+    <div class="suggest-item">
+      <img class="suggest-avatar" src="https://i.pravatar.cc/100?img=33" alt="shital">
+      <div class="suggest-info">
+        <div class="suggest-name">शिtal Nindhe🦋</div>
+        <div class="suggest-sub">🎭🌿 Followed by gaurav.p272_ +</div>
+      </div>
+      <button class="follow-btn" onclick="toggleFollow(this)">Follow</button>
+    </div>
+    <div class="suggest-item">
+      <img class="suggest-avatar" src="https://i.pravatar.cc/100?img=34" alt="Ticiji">
+      <div class="suggest-info">
+        <div class="suggest-name">Ticiji Lizzette</div>
+        <div class="suggest-sub">⚪ Followed by rk_singh_141421</div>
+      </div>
+      <button class="follow-btn" onclick="toggleFollow(this)">Follow</button>
+    </div>
+    <div class="suggest-item">
+      <img class="suggest-avatar" src="https://i.pravatar.cc/100?img=35" alt="Madhuri">
+      <div class="suggest-info">
+        <div class="suggest-name">MADHURI ARSUL PATIL</div>
+        <div class="suggest-sub">🎭 Followed by rutuja_khedkar_</div>
+      </div>
+      <button class="follow-btn" onclick="toggleFollow(this)">Follow</button>
+    </div>
+
+    <div class="footer-links">
+      <a href="#">About</a><a href="#">Help</a><a href="#">Press</a><a href="#">API</a>
+      <a href="#">Jobs</a><a href="#">Privacy</a><a href="#">Terms</a><a href="#">Locations</a>
+      <a href="#">Language</a><a href="#">Meta Verified</a>
+    </div>
+    <div class="footer-copy">© 2026 INSTAGRAM FROM META</div>
+  </div>
+</main>
+
+<script>
+  // Toggle like
+  function toggleLike(btn, likesId) {
+    const svg = btn.querySelector('svg');
+    const likesEl = document.getElementById(likesId);
+    let count = parseInt(likesEl.textContent.replace(/,/g,''));
+    if (btn.classList.contains('liked')) {
+      btn.classList.remove('liked');
+      svg.setAttribute('fill','none');
+      svg.setAttribute('stroke','currentColor');
+      likesEl.textContent = (count - 1).toLocaleString();
+    } else {
+      btn.classList.add('liked');
+      svg.setAttribute('fill','#ff3040');
+      svg.setAttribute('stroke','#ff3040');
+      likesEl.textContent = (count + 1).toLocaleString();
+    }
+  }
+
+  // Double tap like
+  function doubleTapLike(wrap) {
+    const heart = wrap.querySelector('.double-tap-heart');
+    heart.classList.remove('pop');
+    void heart.offsetWidth;
+    heart.classList.add('pop');
+    // Also trigger like if not already liked
+    const post = wrap.closest('.post');
+    const likeBtn = post.querySelector('.like-btn');
+    const likesId = likeBtn.getAttribute('onclick').match(/'([^']+)'/g)[1].replace(/'/g,'');
+    if (!likeBtn.classList.contains('liked')) toggleLike(likeBtn, likesId);
+  }
+
+  // View story
+  function viewStory(item) {
+    const ring = item.querySelector('.story-ring');
+    ring.classList.add('seen');
+    ring.style.background = '#dbdbdb';
+  }
+
+  // Toggle follow
+  function toggleFollow(btn) {
+    if (btn.textContent === 'Follow') {
+      btn.textContent = 'Following';
+      btn.classList.add('following');
+    } else {
+      btn.textContent = 'Follow';
+      btn.classList.remove('following');
+    }
+  }
+
+  // Comment input post button visibility
+  function togglePostBtn(inputId, btnId) {
+    const val = document.getElementById(inputId).value;
+    document.getElementById(btnId).style.opacity = val.length > 0 ? '1' : '0';
+  }
+
+  function postComment(inputId) {
+    const el = document.getElementById(inputId);
+    el.value = '';
+  }
+</script>
+</body>
+</html>
