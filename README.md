@@ -3,7 +3,7 @@
 <p align="center">
   <img src="https://img.shields.io/badge/Status-Active%20Learning-brightgreen?style=for-the-badge" />
   <img src="https://img.shields.io/badge/Java-Full%20Stack-orange?style=for-the-badge&logo=java" />
-  <img src="https://img.shields.io/badge/React.js-Completed-61DAFB?style=for-the-badge&logo=react" />
+  <img src="https://img.shields.io/badge/React.js-Learning-61DAFB?style=for-the-badge&logo=react" />
   <img src="https://img.shields.io/badge/Spring%20Boot-Learning-blue?style=for-the-badge&logo=springboot" />
 </p>
 
@@ -41,7 +41,7 @@ You'll find practice programs, mini projects, DSA, database work, and real-world
 | Advanced Java    | ✅ Completed      |
 | MySQL            | ✅ Completed      |
 | PostgreSQL       | ✅ Completed      |
-| DSA              | ✅ Completed  |
+| DSA              | ✅ Completed      |
 | Web Programming  | ✅ Completed      |
 | React.js         | 🔄 Learning       |
 | Spring Framework | 🔄 Learning       |
@@ -49,28 +49,28 @@ You'll find practice programs, mini projects, DSA, database work, and real-world
 
 ---
 
-## ⚛️ React Web Development – Completed
+## ⚛️ React.js – Currently Learning
 
-> ✅ I have successfully completed **React.js** including modern hooks, component architecture, routing, state management, and building dynamic frontend applications.
+> 🔄 I am currently learning **React.js** including modern hooks, component architecture, routing, state management, and building dynamic frontend applications.
 
-### 🧠 Topics Mastered in React
+### 🧠 React Topics (In Progress)
 
-- Functional Components & JSX  
-- Props & State Management  
-- useState, useEffect, useContext  
-- React Router DOM  
-- Forms & Validation  
-- Fetching APIs (Axios/Fetch)  
-- Component Lifecycle  
-- Tailwind CSS with React  
-- Deployment (Vercel / Netlify)
+- ✅ Functional Components & JSX  
+- ✅ Props & State Management  
+- 🔄 useState, useEffect, useContext  
+- 🔄 React Router DOM  
+- 🔄 Forms & Validation  
+- ⏳ Fetching APIs (Axios/Fetch)  
+- ⏳ Component Lifecycle  
+- ⏳ Tailwind CSS with React  
+- ⏳ Deployment (Vercel / Netlify)
 
-### 🛠️ Mini Projects Built with React
+### 🛠️ React Practice Projects
 
-- 📝 Todo List App  
-- 🌦️ Weather App using API  
-- 🛒 Shopping Cart UI  
-- 🔐 Login/Signup Form with Validation  
+- ✅ Todo List App  
+- 🔄 Weather App using API  
+- ⏳ Shopping Cart UI  
+- ⏳ Login/Signup Form with Validation  
 
 ---
 
@@ -115,12 +115,11 @@ You'll find practice programs, mini projects, DSA, database work, and real-world
 ### ⚛️ React Practice Projects  
 **Tech:** `React.js`, `Tailwind CSS`, `API Integration`  
 
-> Modern frontend applications built with React.js.
+> Modern frontend applications being built with React.js (Learning in Progress).
 
-✅ Todo List App  
-✅ Weather App  
-✅ Shopping Cart UI  
-✅ Form Validation  
+✅ Todo List App (Completed)  
+🔄 Weather App (In Progress)  
+⏳ More coming soon...
 
 ---
 
@@ -130,6 +129,8 @@ This repo also includes:
 
 - 📌 Sorting & Searching Algorithms  
 - 📌 Recursion, Stack, Queue, Linked List  
+- 📌 Trees & Graphs  
+- 📌 Dynamic Programming Basics  
 - 📌 HTML, CSS, JavaScript basics  
 - 📌 Responsive Web Design  
 - 📌 SQL query challenges  
@@ -141,15 +142,13 @@ This repo also includes:
 - 🚀 Become a **Full Stack Java + React Developer**  
 - 🌱 Master **Spring Boot, Hibernate & REST APIs**  
 - 🧠 Build **real-world full stack applications** (React + Spring Boot)  
-- 💡 Improve problem solving & DSA  
+- 💡 Continuously improve problem solving & DSA  
 - 🎓 Crack **Software Engineering interviews**
 
 ---
 
 ## 📈 Learning Journey
 
-> 🔥 **React.js completed!** – Now moving toward building full stack apps with React + Spring Boot!
+> 🔄 **Currently learning React.js!** – Next step: Master React, then integrate with Spring Boot!
 
-📅 **Next Milestone:** Integrate React frontend with Spring Boot backend → Full Stack Project 🚀
-
-**Progress Timeline:**
+📅 **Learning Roadmap:**
