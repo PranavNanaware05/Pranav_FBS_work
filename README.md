@@ -152,3 +152,25 @@ This repo also includes:
 > 🔄 **Currently learning React.js!** – Next step: Master React, then integrate with Spring Boot!
 
 📅 **Learning Roadmap:**
+
+
+**Current Focus:** Building React components, managing state with hooks, and consuming APIs.
+
+---
+
+## 🔗 Connect With Me
+
+<p align="left">
+  <a href="https://github.com/PranavNanaware05">
+    <img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white" />
+  </a>
+</p>
+
+---
+
+<p align="center">
+  ⭐ From C to React – the journey continues!  
+  <br/>Currently: <strong>Learning React.js</strong> 🚀
+  <br/><br/>
+  <i>"Code. Learn. Build. Repeat."</i>
+</p>
