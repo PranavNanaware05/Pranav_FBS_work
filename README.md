@@ -3,12 +3,12 @@
 <p align="center">
   <img src="https://img.shields.io/badge/Status-Active%20Learning-brightgreen?style=for-the-badge" />
   <img src="https://img.shields.io/badge/Java-Full%20Stack-orange?style=for-the-badge&logo=java" />
-  <img src="https://img.shields.io/badge/DSA-In%20Progress-yellow?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/React.js-Completed-61DAFB?style=for-the-badge&logo=react" />
   <img src="https://img.shields.io/badge/Spring%20Boot-Learning-blue?style=for-the-badge&logo=springboot" />
 </p>
 
 Welcome to my learning repository 🚀  
-This is where I document my journey — from basic C programming to full stack Java development.  
+This is where I document my journey — from basic C programming to full stack Java + React development.  
 You'll find practice programs, mini projects, DSA, database work, and real-world web dev concepts.
 
 ---
@@ -23,6 +23,7 @@ You'll find practice programs, mini projects, DSA, database work, and real-world
   <img src="https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=html5&logoColor=white" />
   <img src="https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=css3&logoColor=white" />
   <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black" />
+  <img src="https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=react&logoColor=black" />
   <img src="https://img.shields.io/badge/Git-F05032?style=flat-square&logo=git&logoColor=white" />
   <img src="https://img.shields.io/badge/Spring-6DB33F?style=flat-square&logo=spring&logoColor=white" />
   <img src="https://img.shields.io/badge/Spring%20Boot-6DB33F?style=flat-square&logo=springboot&logoColor=white" />
@@ -41,9 +42,35 @@ You'll find practice programs, mini projects, DSA, database work, and real-world
 | MySQL            | ✅ Completed      |
 | PostgreSQL       | ✅ Completed      |
 | DSA              | 🔄 In Progress    |
-| Web Programming  | 🔄 In Progress    |
+| Web Programming  | ✅ Completed      |
+| React.js         | ✅ Completed      |
 | Spring Framework | 🔄 Learning       |
 | Spring Boot      | 🔄 Learning       |
+
+---
+
+## ⚛️ React Web Development – Completed
+
+> ✅ I have successfully completed **React.js** including modern hooks, component architecture, routing, state management, and building dynamic frontend applications.
+
+### 🧠 Topics Mastered in React
+
+- Functional Components & JSX  
+- Props & State Management  
+- useState, useEffect, useContext  
+- React Router DOM  
+- Forms & Validation  
+- Fetching APIs (Axios/Fetch)  
+- Component Lifecycle  
+- Tailwind CSS with React  
+- Deployment (Vercel / Netlify)
+
+### 🛠️ Mini Projects Built with React
+
+- 📝 Todo List App  
+- 🌦️ Weather App using API  
+- 🛒 Shopping Cart UI  
+- 🔐 Login/Signup Form with Validation  
 
 ---
 
@@ -85,6 +112,18 @@ You'll find practice programs, mini projects, DSA, database work, and real-world
 
 ---
 
+### ⚛️ React Practice Projects  
+**Tech:** `React.js`, `Tailwind CSS`, `API Integration`  
+
+> Modern frontend applications built with React.js.
+
+✅ Todo List App  
+✅ Weather App  
+✅ Shopping Cart UI  
+✅ Form Validation  
+
+---
+
 ## 💻 DSA & Web Programming Practice
 
 This repo also includes:
@@ -99,33 +138,18 @@ This repo also includes:
 
 ## 🎯 Career Goals
 
-- 🚀 Become a **Full Stack Java Developer**  
-- 🌱 Master **Spring Boot & Hibernate**  
-- 🧠 Build real-world **scalable applications**  
-- 💡 Improve **problem solving** (1% better every day)  
+- 🚀 Become a **Full Stack Java + React Developer**  
+- 🌱 Master **Spring Boot, Hibernate & REST APIs**  
+- 🧠 Build **real-world full stack applications** (React + Spring Boot)  
+- 💡 Improve problem solving & DSA  
 - 🎓 Crack **Software Engineering interviews**
 
 ---
 
 ## 📈 Learning Journey
 
-> _"I continuously practice, build projects, and push my limits — because growth happens outside the comfort zone."_
+> 🔥 **React.js completed!** – Now moving toward building full stack apps with React + Spring Boot!
 
-📅 **Every day:** Code + Learn + Document + Repeat.
+📅 **Next Milestone:** Integrate React frontend with Spring Boot backend → Full Stack Project 🚀
 
----
-
-## 🔗 Connect With Me
-
-<p align="left">
-  <a href="https://github.com/PranavNanaware05">
-    <img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white" />
-  </a>
-</p>
-
----
-
-<p align="center">
-  ⭐ Thanks for visiting my learning space!  
-  <br/>Let's connect, collaborate, and grow together.
-</p>
+**Progress Timeline:**
