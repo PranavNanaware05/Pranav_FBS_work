@@ -41,9 +41,9 @@ You'll find practice programs, mini projects, DSA, database work, and real-world
 | Advanced Java    | ✅ Completed      |
 | MySQL            | ✅ Completed      |
 | PostgreSQL       | ✅ Completed      |
-| DSA              | 🔄 In Progress    |
+| DSA              | ✅ Completed  |
 | Web Programming  | ✅ Completed      |
-| React.js         | ✅ Completed      |
+| React.js         | 🔄 Learning       |
 | Spring Framework | 🔄 Learning       |
 | Spring Boot      | 🔄 Learning       |
 
